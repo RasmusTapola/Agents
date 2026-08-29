@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-08-29T18:58:32+00:00",
+  "input_file": "GmailAgent\\reports\\work_order_candidates_2026-08-29.json",
+  "candidate_count": 1,
+  "decision_counts": {
+    "approved_for_next_stage": 1
+  },
+  "results": [
+    {
+      "email_id": "1a04ed1ca675ef16",
+      "subject": "Machine breaking down and needing maintenance",
+      "decision": "approved_for_next_stage",
+      "reason": "Required fields are present and confidence meets the approval threshold.",
+      "missing_information": [],
+      "confidence": 0.92,
+      "priority": "unknown",
+      "work_order": {
+        "is_work_order_candidate": true,
+        "request_type": "maintenance",
+        "customer_name": "Matti Meikäläinen",
+        "organization_name": "Mahtavat masiinat Oy",
+        "customer_number": "",
+        "site_or_address": "konekatu 123",
+        "contact_name": "Matti Meikäläinen",
+        "contact_details": "rasmus.tapola@outlook.com",
+        "contact_phone_number": "+358 40 123 4567",
+        "problem_or_request": "Machine showing signs of breaking down, making weird noises and being high temperature",
+        "equipment_or_asset": "machine",
+        "requested_date": "unknown",
+        "requested_time": "unknown",
+        "priority": "unknown",
+        "missing_information": [],
+        "confidence": 0.92,
+        "recommended_next_step": "Proceed to controlled work-order creation after CRM customer lookup"
+      },
+      "clarification_email": null
+    }
+  ]
+}

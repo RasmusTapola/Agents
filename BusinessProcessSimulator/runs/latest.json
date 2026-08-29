@@ -1,0 +1,174 @@
+{
+  "status": "completed",
+  "email": {
+    "id": "email-1001",
+    "sender": "maintenance@northwind.example",
+    "subject": "Urgent: ventilation unit making noise at Hämeentie 12",
+    "body": "Hello, the ventilation unit in our office at Hämeentie 12 is making an unusual noise and the temperature has dropped. Could someone visit tomorrow morning? Customer number NW-001. Regards, Anna"
+  },
+  "request": {
+    "email_id": "email-1001",
+    "customer_number": "NW-001",
+    "customer_name": "Northwind Facilities Oy",
+    "site_code": "NW-HAM-01",
+    "address": "Hämeentie 12, Helsinki",
+    "category": "HVAC",
+    "problem": "Unusual ventilation-unit noise and temperature drop",
+    "requested_time": "tomorrow morning",
+    "priority": "high",
+    "confidence": 0.94,
+    "missing_fields": []
+  },
+  "work_order": {
+    "id": "WO-CD3DF322",
+    "customer_name": "Northwind Facilities Oy",
+    "site_code": "NW-HAM-01",
+    "address": "Hämeentie 12, Helsinki",
+    "category": "HVAC",
+    "problem": "Unusual ventilation-unit noise and temperature drop",
+    "priority": "high",
+    "status": "Scheduled",
+    "source_email_id": "email-1001"
+  },
+  "report": {
+    "work_order_id": "WO-CD3DF322",
+    "completed_work": "Inspected ventilation unit and replaced worn fan belt.",
+    "measurements": {
+      "vibration_mm_s": 2.1,
+      "temperature_c": 21.5
+    },
+    "follow_up": "Schedule inspection in six months."
+  },
+  "invoice": {
+    "customer": "Northwind Facilities Oy",
+    "work_order_id": "WO-CD3DF322",
+    "status": "Draft",
+    "lines": [
+      {
+        "description": "Service visit and fan-belt replacement",
+        "quantity": 1,
+        "unit_price": 185.0
+      },
+      {
+        "description": "Travel and materials",
+        "quantity": 1,
+        "unit_price": 65.0
+      }
+    ],
+    "total_excl_vat": 250.0
+  },
+  "events": [
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "SimulatedInbox",
+      "event": "email_received",
+      "data": {
+        "id": "email-1001",
+        "sender": "maintenance@northwind.example",
+        "subject": "Urgent: ventilation unit making noise at Hämeentie 12",
+        "body": "Hello, the ventilation unit in our office at Hämeentie 12 is making an unusual noise and the temperature has dropped. Could someone visit tomorrow morning? Customer number NW-001. Regards, Anna"
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "IntakeAgent",
+      "event": "request_extracted",
+      "data": {
+        "email_id": "email-1001",
+        "customer_number": "NW-001",
+        "customer_name": "",
+        "site_code": "",
+        "address": "Hämeentie 12",
+        "category": "HVAC",
+        "problem": "Unusual ventilation-unit noise and temperature drop",
+        "requested_time": "tomorrow morning",
+        "priority": "high",
+        "confidence": 0.94,
+        "missing_fields": []
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "ValidationAgent",
+      "event": "request_validated",
+      "data": {
+        "customer": {
+          "customer_name": "Northwind Facilities Oy",
+          "site_code": "NW-HAM-01",
+          "address": "Hämeentie 12, Helsinki"
+        },
+        "confidence": 0.94
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "ApprovalAgent",
+      "event": "approved",
+      "data": {
+        "priority": "high",
+        "reason": "synthetic training decision"
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "SimulatedERP",
+      "event": "work_order_created",
+      "data": {
+        "id": "WO-CD3DF322",
+        "customer_name": "Northwind Facilities Oy",
+        "site_code": "NW-HAM-01",
+        "address": "Hämeentie 12, Helsinki",
+        "category": "HVAC",
+        "problem": "Unusual ventilation-unit noise and temperature drop",
+        "priority": "high",
+        "status": "Scheduled",
+        "source_email_id": "email-1001"
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "ReportingAgent",
+      "event": "technician_report_created",
+      "data": {
+        "work_order_id": "WO-CD3DF322",
+        "completed_work": "Inspected ventilation unit and replaced worn fan belt.",
+        "measurements": {
+          "vibration_mm_s": 2.1,
+          "temperature_c": 21.5
+        },
+        "follow_up": "Schedule inspection in six months."
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "BillingAgent",
+      "event": "invoice_draft_created",
+      "data": {
+        "customer": "Northwind Facilities Oy",
+        "work_order_id": "WO-CD3DF322",
+        "status": "Draft",
+        "lines": [
+          {
+            "description": "Service visit and fan-belt replacement",
+            "quantity": 1,
+            "unit_price": 185.0
+          },
+          {
+            "description": "Travel and materials",
+            "quantity": 1,
+            "unit_price": 65.0
+          }
+        ],
+        "total_excl_vat": 250.0
+      }
+    },
+    {
+      "timestamp": "2026-08-29T18:30:07+00:00",
+      "agent": "Orchestrator",
+      "event": "workflow_completed",
+      "data": {
+        "work_order_id": "WO-CD3DF322"
+      }
+    }
+  ]
+}

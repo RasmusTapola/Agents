@@ -1,10 +1,10 @@
 # Local Gmail reader agent
 
-This prototype reads a small, recent batch of Gmail messages, sends their text to a local Ollama model, and writes a Markdown attention report with proposed Trash actions for likely advertisements, spam, or suspicious messages.
+This prototype reads a small, recent batch of Gmail messages, sends their text to a local Ollama model, and writes a Markdown report with email triage plus a validation queue for possible business work orders. It also proposes Trash actions for likely advertisements, spam, or suspicious messages.
 
 All credentials, tokens, reports, and application files are stored relative to this `GmailAgent` directory, so the program can be launched from any working directory.
 
-The default run does not modify Gmail. A separate `--apply` command asks for confirmation for each proposed message before moving it to Trash.
+The default run does not modify Gmail and does not create work orders. A separate `--apply` command asks for confirmation for each proposed message before moving it to Trash.
 
 ## Setup
 
@@ -32,7 +32,9 @@ The default run does not modify Gmail. A separate `--apply` command asks for con
    python gmail_agent.py
    ```
 
-The first run opens a browser for Google authorization and creates `token.json`. The report is written under `reports/`.
+The first run opens a browser for Google authorization and creates `token.json`. The report is written under `reports/`. Each scan also writes `work_order_candidates_YYYY-MM-DD.json`, a review-only handoff for a future ERP/work-order agent. It contains extracted fields, confidence, and missing information; it is not an instruction to create anything.
+
+The agent stores processed Gmail message IDs in `state/processed_messages.json`. Later scans skip those messages, even if Gmail still returns them for the query. This makes repeated scans idempotent and prevents the same email from producing duplicate work-order candidates. Use `--reprocess` deliberately when you need to analyze messages again.
 
 ## Review and apply actions
 
@@ -42,6 +44,12 @@ Run the analysis/report step first:
 python gmail_agent.py --query "in:inbox newer_than:2d" --limit 5
 ```
 
+Repeated runs process only new message IDs. To intentionally rescan already processed messages:
+
+```powershell
+python gmail_agent.py --query "in:inbox newer_than:2d" --limit 5 --reprocess
+```
+
 Review the dated report, for example `reports\mail_report_2026-08-29.md`. If the proposed actions look correct, apply that day's proposals with:
 
 ```powershell
@@ -49,6 +57,12 @@ python gmail_agent.py --apply --date 2026-08-29
 ```
 
 The program shows each proposed message from that date and moves it only when you type `yes`. Any other response keeps the message. Each scan also creates a separate `pending_actions_YYYY-MM-DD.json` file, so days can be handled independently.
+
+## Work-order validation
+
+The report has a **Work-order validation queue** near the top. For each possible request it shows the customer, site/address, request type, priority, problem, equipment, requested date/time, missing information, model confidence, and recommended next step.
+
+At this stage, treat the queue as a human review artifact. The next agent should only receive entries that a person has approved.
 
 ## Safety
 
