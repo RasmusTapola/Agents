@@ -1,0 +1,103 @@
+{
+  "workflows": {
+    "workflow-20260830T104358Z": {
+      "workflow_id": "workflow-20260830T104358Z",
+      "history": [
+        {
+          "timestamp": "2026-08-30T10:43:58+00:00",
+          "state": "received",
+          "data": {
+            "skip_gmail": true
+          }
+        },
+        {
+          "timestamp": "2026-08-30T10:43:58+00:00",
+          "state": "extracted",
+          "data": {
+            "candidate_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-08-30.json"
+          }
+        },
+        {
+          "timestamp": "2026-08-30T10:43:58+00:00",
+          "state": "validated",
+          "data": {
+            "output_file": "C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json"
+          }
+        },
+        {
+          "timestamp": "2026-08-30T10:43:59+00:00",
+          "state": "erp_created",
+          "data": {
+            "output_file": "C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\latest.json"
+          }
+        }
+      ],
+      "state": "erp_created",
+      "updated_at": "2026-08-30T10:43:59+00:00"
+    },
+    "workflow-20260830T120021Z": {
+      "workflow_id": "workflow-20260830T120021Z",
+      "history": [
+        {
+          "timestamp": "2026-08-30T12:00:21+00:00",
+          "state": "received",
+          "data": {
+            "skip_gmail": true
+          }
+        },
+        {
+          "timestamp": "2026-08-30T12:00:21+00:00",
+          "state": "extracted",
+          "data": {
+            "candidate_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-08-30.json"
+          }
+        },
+        {
+          "timestamp": "2026-08-30T12:00:21+00:00",
+          "state": "validated",
+          "data": {
+            "output_file": "C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json"
+          }
+        }
+      ],
+      "state": "validated",
+      "updated_at": "2026-08-30T12:00:21+00:00"
+    },
+    "workflow-20260830T120035Z": {
+      "workflow_id": "workflow-20260830T120035Z",
+      "history": [
+        {
+          "timestamp": "2026-08-30T12:00:35+00:00",
+          "state": "received",
+          "data": {
+            "skip_gmail": true
+          }
+        },
+        {
+          "timestamp": "2026-08-30T12:00:35+00:00",
+          "state": "extracted",
+          "data": {
+            "candidate_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-08-30.json"
+          }
+        },
+        {
+          "timestamp": "2026-08-30T12:00:35+00:00",
+          "state": "validated",
+          "data": {
+            "output_file": "C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json"
+          }
+        },
+        {
+          "timestamp": "2026-08-30T12:00:36+00:00",
+          "state": "erp_created",
+          "data": {
+            "output_file": "C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\latest.json"
+          }
+        }
+      ],
+      "state": "erp_created",
+      "updated_at": "2026-08-30T12:00:36+00:00"
+    }
+  },
+  "events": []
+}

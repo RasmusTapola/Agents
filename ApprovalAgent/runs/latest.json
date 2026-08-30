@@ -1,20 +1,28 @@
 {
-  "generated_at": "2026-08-30T12:00:35+00:00",
-  "input_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-08-30.json",
+  "generated_at": "2026-08-30T12:00:36+00:00",
+  "input_file": "C:\\var\\git\\Agents\\CRMResolutionAgent\\runs\\latest.json",
   "candidate_count": 3,
   "decision_counts": {
-    "approved_for_next_stage": 3
+    "requires_human_approval": 2,
+    "approved": 1
   },
   "results": [
     {
       "email_id": "1a052200208b8b0d",
-      "sender": "Rasmus Tapola <rasmus.tapola@outlook.com>",
       "subject": "Offer for ventilation system",
-      "decision": "approved_for_next_stage",
-      "reason": "Required fields are present and confidence meets the approval threshold.",
-      "missing_information": [],
-      "confidence": 0.8,
-      "priority": "unknown",
+      "decision": "requires_human_approval",
+      "reason": "Commercial offer, new-customer, or system-extension request detected (offer).",
+      "source_validation_decision": "approved_for_next_stage",
+      "risk_signals": {
+        "safety_term": null,
+        "offer_term": "offer"
+      },
+      "approval_request": {
+        "type": "commercial_approval",
+        "status": "pending",
+        "required_from": "authorized_human_reviewer",
+        "reason": "Commercial offer, new-customer, or system-extension request detected (offer)."
+      },
       "work_order": {
         "is_work_order_candidate": true,
         "request_type": "quote_request",
@@ -32,18 +40,19 @@
         "missing_information": [],
         "confidence": 0.8,
         "recommended_next_step": "Request missing customer number, requested date, and time"
-      },
-      "clarification_email": null
+      }
     },
     {
       "email_id": "1a0521f9ce42b365",
-      "sender": "Rasmus Tapola <rasmus.tapola@outlook.com>",
       "subject": "Maintenance request",
-      "decision": "approved_for_next_stage",
-      "reason": "Required fields are present and confidence meets the approval threshold.",
-      "missing_information": [],
-      "confidence": 0.8,
-      "priority": "medium",
+      "decision": "approved",
+      "reason": "Validated ordinary service request meets the current automatic-processing policy.",
+      "source_validation_decision": "approved_for_next_stage",
+      "risk_signals": {
+        "safety_term": null,
+        "offer_term": null
+      },
+      "approval_request": null,
       "work_order": {
         "is_work_order_candidate": true,
         "request_type": "maintenance",
@@ -61,18 +70,24 @@
         "missing_information": [],
         "confidence": 0.8,
         "recommended_next_step": "Schedule technician visit for compressor inspection"
-      },
-      "clarification_email": null
+      }
     },
     {
       "email_id": "1a0521f750d5c771",
-      "sender": "Rasmus Tapola <rasmus.tapola@outlook.com>",
       "subject": "Gas leak at basement",
-      "decision": "approved_for_next_stage",
-      "reason": "Required fields are present and confidence meets the approval threshold.",
-      "missing_information": [],
-      "confidence": 0.9,
-      "priority": "high",
+      "decision": "requires_human_approval",
+      "reason": "Safety-sensitive request detected (gas leak).",
+      "source_validation_decision": "approved_for_next_stage",
+      "risk_signals": {
+        "safety_term": "gas leak",
+        "offer_term": null
+      },
+      "approval_request": {
+        "type": "safety_review",
+        "status": "pending",
+        "required_from": "authorized_human_reviewer",
+        "reason": "Safety-sensitive request detected (gas leak)."
+      },
       "work_order": {
         "is_work_order_candidate": true,
         "request_type": "inspection",
@@ -90,8 +105,7 @@
         "missing_information": [],
         "confidence": 0.9,
         "recommended_next_step": "Inspect suspected gas leak at specified location"
-      },
-      "clarification_email": null
+      }
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-08-30T12:00:36+00:00",
+  "input_file": "C:\\var\\git\\Agents\\ApprovalAgent\\runs\\latest.json",
+  "created_count": 0,
+  "skipped_duplicate_count": 1,
+  "created_work_orders": [],
+  "simulated_erp_file": "C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\simulated_erp_work_orders.json"
+}

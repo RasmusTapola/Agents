@@ -15,9 +15,9 @@ The default run does not modify Gmail and does not create work orders. A separat
 5. Install dependencies:
 
    ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   python -m pip install -r requirements.txt
+   python -m venv ..\.venv
+   ..\.venv\Scripts\Activate.ps1
+   python -m pip install -r ..\requirements.txt
    ```
 
 6. Start Ollama and make sure the model is available, for example:

@@ -23,9 +23,10 @@ def newest_candidate_file() -> Path:
 def validate_candidate(item: dict) -> dict:
     work_order = item.get("work_order", {})
     message = item.get("message", {})
-    # Customer numbers are intentionally not required at this stage; a later CRM
-    # lookup can resolve the organization after the email has been validated.
-    missing = [item for item in (work_order.get("missing_information") or []) if item != "customer_number"]
+    # Customer numbers and scheduling details are intentionally not required at
+    # intake. CRM lookup and resource planning happen in later stages.
+    optional_fields = {"customer_number", "requested_date", "requested_time", "date", "time"}
+    missing = [item for item in (work_order.get("missing_information") or []) if item not in optional_fields]
     organization = (work_order.get("organization_name") or "").strip()
     site = (work_order.get("site_or_address") or "").strip()
     problem = (work_order.get("problem_or_request") or "").strip()
@@ -74,6 +75,7 @@ def validate_candidate(item: dict) -> dict:
 
     return {
         "email_id": message.get("id"),
+        "sender": message.get("from"),
         "subject": message.get("subject"),
         "decision": decision,
         "reason": reason,

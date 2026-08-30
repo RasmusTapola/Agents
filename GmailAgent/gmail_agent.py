@@ -7,6 +7,7 @@ import base64
 import html
 import json
 import re
+import sys
 from datetime import datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -352,6 +353,8 @@ def apply_pending_actions(service, pending_path: Path):
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--query", default="in:inbox newer_than:7d", help="Gmail search query")
     parser.add_argument("--limit", type=int, default=10, help="Maximum messages to inspect")

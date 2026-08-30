@@ -1,0 +1,62 @@
+[
+  {
+    "approval_id": "APR-F090FD7935",
+    "status": "rejected_by_human",
+    "created_at": "2026-08-30T10:19:17+00:00",
+    "decided_at": "2026-08-30T10:19:22+00:00",
+    "decision": "reject",
+    "reviewer_note": "Commercial approval not granted in test",
+    "type": "commercial_approval",
+    "reason": "Commercial offer, new-customer, or system-extension request detected (offer).",
+    "email_id": "1a052200208b8b0d",
+    "subject": "Offer for ventilation system",
+    "work_order": {
+      "is_work_order_candidate": true,
+      "request_type": "quote_request",
+      "customer_name": "Matti Meikäläinen",
+      "organization_name": "Mahtavat masiinat Oy",
+      "customer_number": "",
+      "site_or_address": "Konekatu 123, Forssa",
+      "contact_name": "Matti Meikäläinen",
+      "contact_details": "+358 40 123 4567",
+      "problem_or_request": "Offer for new ventilation system covering 1,200 square metres of production space with integration with existing monitoring system",
+      "equipment_or_asset": "Ventilation system",
+      "requested_date": "",
+      "requested_time": "",
+      "priority": "unknown",
+      "missing_information": [],
+      "confidence": 0.8,
+      "recommended_next_step": "Request missing customer number, requested date, and time"
+    }
+  },
+  {
+    "approval_id": "APR-8EC85A9452",
+    "status": "clarification_requested",
+    "created_at": "2026-08-30T10:19:17+00:00",
+    "decided_at": "2026-08-30T10:19:23+00:00",
+    "decision": "clarification",
+    "reviewer_note": "Confirm emergency response owner",
+    "type": "safety_review",
+    "reason": "Safety-sensitive request detected (gas leak).",
+    "email_id": "1a0521f750d5c771",
+    "subject": "Gas leak at basement",
+    "work_order": {
+      "is_work_order_candidate": true,
+      "request_type": "inspection",
+      "customer_name": "Matti Meikäläinen",
+      "organization_name": "Mahtavat masiinat Oy",
+      "customer_number": "",
+      "site_or_address": "Konekatu 123, Mahtavat masiinat Oy",
+      "contact_name": "Matti Meikäläinen",
+      "contact_details": "+358 40 123 4567",
+      "problem_or_request": "Suspected gas leak near boiler in basement",
+      "equipment_or_asset": "Boiler",
+      "requested_date": "",
+      "requested_time": "",
+      "priority": "high",
+      "missing_information": [],
+      "confidence": 0.9,
+      "recommended_next_step": "Inspect suspected gas leak at specified location"
+    }
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "results": [
+    {
+      "email_id": "email-incomplete-001",
+      "sender": "office@example.com",
+      "subject": "Repair request for our production machine",
+      "decision": "request_clarification",
+      "missing_information": ["organization_name", "specific_site_address", "contact_phone_number"],
+      "work_order": {
+        "request_type": "repair",
+        "problem_or_request": "Production machine making abnormal noise"
+      }
+    }
+  ]
+}

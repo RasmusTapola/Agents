@@ -1,10 +1,6 @@
 {
-  "generated_at": "2026-08-30T12:00:35+00:00",
-  "input_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-08-30.json",
-  "candidate_count": 3,
-  "decision_counts": {
-    "approved_for_next_stage": 3
-  },
+  "generated_at": "2026-08-30T12:00:36+00:00",
+  "input_file": "C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json",
   "results": [
     {
       "email_id": "1a052200208b8b0d",
@@ -33,7 +29,9 @@
         "confidence": 0.8,
         "recommended_next_step": "Request missing customer number, requested date, and time"
       },
-      "clarification_email": null
+      "clarification_email": null,
+      "crm_status": "not_configured",
+      "crm_error": "ESPOCRM_API_KEY is not set"
     },
     {
       "email_id": "1a0521f9ce42b365",
@@ -62,7 +60,9 @@
         "confidence": 0.8,
         "recommended_next_step": "Schedule technician visit for compressor inspection"
       },
-      "clarification_email": null
+      "clarification_email": null,
+      "crm_status": "not_configured",
+      "crm_error": "ESPOCRM_API_KEY is not set"
     },
     {
       "email_id": "1a0521f750d5c771",
@@ -91,7 +91,9 @@
         "confidence": 0.9,
         "recommended_next_step": "Inspect suspected gas leak at specified location"
       },
-      "clarification_email": null
+      "clarification_email": null,
+      "crm_status": "not_configured",
+      "crm_error": "ESPOCRM_API_KEY is not set"
     }
   ]
 }

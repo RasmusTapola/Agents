@@ -1,0 +1,31 @@
+[
+  {
+    "clarification_id": "CLR-3FC52084A4",
+    "status": "draft_not_sent",
+    "created_at": "2026-08-30T10:21:32+00:00",
+    "email_id": "email-incomplete-001",
+    "to": "office@example.com",
+    "subject": "Re: Repair request for our production machine",
+    "missing_information": [
+      "organization_name",
+      "specific_site_address",
+      "contact_phone_number"
+    ],
+    "body": "Hello,\n\nThank you for your request. Before we can continue, could you please provide the company or customer organization name, the exact service address or site identifier, and a phone number for the site contact?\n\nOnce we have this information, we can continue processing your request.\n\nBest regards",
+    "source_validation": {
+      "email_id": "email-incomplete-001",
+      "sender": "office@example.com",
+      "subject": "Repair request for our production machine",
+      "decision": "request_clarification",
+      "missing_information": [
+        "organization_name",
+        "specific_site_address",
+        "contact_phone_number"
+      ],
+      "work_order": {
+        "request_type": "repair",
+        "problem_or_request": "Production machine making abnormal noise"
+      }
+    }
+  }
+]

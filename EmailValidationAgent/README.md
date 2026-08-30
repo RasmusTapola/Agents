@@ -21,3 +21,5 @@ The result is written to `EmailValidationAgent/runs/latest.json` and contains on
 - `escalate_to_human`: the request is too risky, ambiguous, or incomplete for automation
 
 The current policy is intentionally conservative. It is a learning scaffold, not a production authorization policy.
+
+Customer numbers and requested dates/times are optional at initial intake. Customer identity can be resolved through a CRM lookup, and scheduling is handled later according to available personnel and workload. They do not block validation by themselves.
