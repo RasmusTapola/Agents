@@ -1,8 +1,13 @@
 {
-  "generated_at": "2026-08-30T12:00:36+00:00",
+  "generated_at": "2026-09-02T12:00:18+00:00",
   "input_file": "C:\\var\\git\\Agents\\ApprovalAgent\\runs\\latest.json",
   "created_count": 0,
-  "skipped_duplicate_count": 1,
+  "skipped_duplicate_count": 0,
+  "failure_count": 0,
+  "failures": [],
   "created_work_orders": [],
+  "dry_run": false,
+  "target_erp": "erpnext",
+  "reconciliation": [],
   "simulated_erp_file": "C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\simulated_erp_work_orders.json"
 }

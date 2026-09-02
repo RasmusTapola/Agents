@@ -9,3 +9,5 @@ python -m pip install -r requirements.txt
 ```
 
 The orchestrator and CRM integration use this root environment. Agent-specific deployment environments can be introduced later when the services are containerized.
+
+Local credentials such as `key.txt` are test-only files and must not be committed or copied into production deployments.

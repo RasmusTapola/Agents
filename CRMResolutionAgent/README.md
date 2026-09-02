@@ -11,6 +11,8 @@ $env:ESPOCRM_URL = "http://localhost:8080"
 $env:ESPOCRM_API_KEY = "paste-api-key-here"
 ```
 
+For this local test project, the client also falls back to `C:\var\git\Agents\key.txt` when `ESPOCRM_API_KEY` is not set. Environment variables take precedence. Do not use this file-based fallback for production deployments, and never commit the key file.
+
 EspoCRM uses the `X-Api-Key` header for API-key authentication, and its API root is `/api/v1/`. The official documentation recommends a separate API user with restricted permissions. See [EspoCRM API overview](https://docs.espocrm.com/development/api/).
 
 ## Test lookups

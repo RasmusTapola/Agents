@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from crm_resolution_agent import EspoCRMClient  # noqa: E402
+from crm_resolution_agent import EspoCRMClient, normalize_text  # noqa: E402
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -36,9 +36,11 @@ def enrich_result(result: dict, client: EspoCRMClient) -> dict:
     work_order = enriched.setdefault("work_order", {})
     missing = [item for item in (enriched.get("missing_information") or []) if item not in {"customer_number", "requested_date", "requested_time", "date", "time"}]
     account = None
+    account_resolution = {"status": "not_searched", "confidence": 0.0, "records": []}
     organization = work_order.get("organization_name")
     if organization:
-        account = first_record(client.find_account_by_name(organization))
+        account_resolution = client.resolve_account(organization)
+        account = first_record({"list": account_resolution.get("records", [])}) if account_resolution["status"] == "matched" else None
     if account:
         work_order["organization_name"] = account.get("name") or organization
         work_order["customer_id"] = account.get("id")
@@ -48,7 +50,11 @@ def enrich_result(result: dict, client: EspoCRMClient) -> dict:
             work_order["site_or_address"] = ", ".join(value for value in (street, city) if value)
         if work_order.get("site_or_address"):
             missing = [item for item in missing if item != "specific_site_address"]
-    contact = first_record(client.find_contact_by_email(email_address(enriched.get("sender")) or "")) if enriched.get("sender") else None
+    contact_resolution = {"status": "not_searched", "confidence": 0.0, "records": []}
+    sender_email = email_address(enriched.get("sender"))
+    if sender_email:
+        contact_resolution = client.resolve_contact(sender_email)
+    contact = first_record({"list": contact_resolution.get("records", [])}) if contact_resolution["status"] == "matched" else None
     if contact:
         work_order["contact_id"] = contact.get("id")
         work_order["contact_name"] = contact.get("name") or work_order.get("contact_name")
@@ -57,9 +63,18 @@ def enrich_result(result: dict, client: EspoCRMClient) -> dict:
             missing = [item for item in missing if item != "contact_phone_number"]
 
     enriched["missing_information"] = list(dict.fromkeys(missing))
-    enriched["crm_status"] = "matched" if account or contact else "no_match"
+    statuses = {account_resolution["status"], contact_resolution["status"]}
+    ambiguous = "ambiguous" in statuses
+    enriched["crm_status"] = "ambiguous" if ambiguous else ("matched" if account or contact else "no_match")
     enriched["crm_matches"] = {"account": account, "contact": contact}
-    if account or contact:
+    enriched["crm_resolution"] = {
+        "account": {"status": account_resolution["status"], "confidence": account_resolution["confidence"]},
+        "contact": {"status": contact_resolution["status"], "confidence": contact_resolution["confidence"]},
+    }
+    if ambiguous:
+        enriched["decision"] = "requires_human_approval"
+        enriched["reason"] = "CRM returned multiple possible matches; human confirmation is required before using customer data."
+    elif account or contact:
         if not enriched["missing_information"]:
             enriched["decision"] = "requires_human_approval"
             enriched["reason"] = "CRM supplied or confirmed request data; human review is required before any response or downstream action."

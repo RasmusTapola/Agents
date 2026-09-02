@@ -5,11 +5,14 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(BASE_DIR.parent))
+from workflow_core.adapters import ERPNextAdapter  # noqa: E402
 DEFAULT_INPUT = BASE_DIR.parent / "ApprovalAgent" / "runs" / "latest.json"
 RUN_DIR = BASE_DIR / "runs"
 ERP_PATH = RUN_DIR / "simulated_erp_work_orders.json"
@@ -41,6 +44,7 @@ def create_record(item: dict) -> dict:
         "work_order_id": work_order_id(item),
         "created_at": now(),
         "source_email_id": item.get("email_id"),
+        "external_id": item.get("workflow_id") or f"email:{item.get('email_id', '')}",
         "customer": work_order.get("organization_name") or work_order.get("customer_name"),
         "contact": work_order.get("contact_name"),
         "contact_details": work_order.get("contact_details"),
@@ -57,29 +61,56 @@ def create_record(item: dict) -> dict:
     }
 
 
-def run(input_path: Path) -> dict:
+def run(input_path: Path, dry_run: bool = False, erpnext: bool = False) -> dict:
     source = json.loads(input_path.read_text(encoding="utf-8"))
     records = load_records()
     known = {record["work_order_id"] for record in records}
     created = []
     skipped = []
+    failures = []
+    adapter = ERPNextAdapter() if erpnext and not dry_run else None
     for item in source.get("results", []):
         if item.get("decision") != "approved":
             continue
-        record = create_record(item)
-        if record["work_order_id"] in known:
-            skipped.append(record["work_order_id"])
-            continue
-        records.append(record)
-        known.add(record["work_order_id"])
-        created.append(record)
-    save_records(records)
+        try:
+            record = create_record(item)
+            if record["work_order_id"] in known and not erpnext:
+                skipped.append(record["work_order_id"])
+                continue
+            if adapter:
+                external_id = record["external_id"]
+                existing = adapter.find_by_external_id(external_id)
+                if existing:
+                    skipped.append(existing.get("name", external_id))
+                    continue
+                erp_record = adapter.create_work_order(record)
+                record["erpnext_name"] = erp_record.get("name")
+                record["erpnext_status"] = erp_record.get("status")
+                record["erpnext_customer"] = next((x.get("name") for x in adapter.find_customer(record["customer"])[:1]), None) if record.get("customer") else None
+                record["erpnext_contact"] = next((x.get("name") for x in adapter.find_contact(record["contact_details"])[:1]), None) if record.get("contact_details") and "@" in record["contact_details"] else None
+            if not dry_run:
+                records.append(record)
+                known.add(record["work_order_id"])
+            created.append(record)
+        except Exception as exc:
+            failures.append({"external_id": item.get("workflow_id") or item.get("email_id"), "error": str(exc)})
+    if not dry_run:
+        save_records(records)
     report = {
         "generated_at": now(),
         "input_file": str(input_path),
         "created_count": len(created),
         "skipped_duplicate_count": len(skipped),
+        "failure_count": len(failures),
+        "failures": failures,
         "created_work_orders": created,
+        "dry_run": dry_run,
+        "target_erp": "erpnext" if erpnext else "simulated",
+        "reconciliation": [
+            {"external_id": item.get("external_id"), "simulated_work_order_id": item["work_order_id"], "erpnext_name": item.get("erpnext_name"),
+             "action": "would_create" if dry_run else "created"}
+            for item in created
+        ],
         "simulated_erp_file": str(ERP_PATH),
     }
     RUN_DIR.mkdir(exist_ok=True)
@@ -90,8 +121,10 @@ def run(input_path: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument("--dry-run", action="store_true", help="Show ERP payloads without writing records")
+    parser.add_argument("--erpnext", action="store_true", help="Create an Issue in ERPNext instead of only using the simulated ERP")
     args = parser.parse_args()
-    report = run(args.input)
+    report = run(args.input, dry_run=args.dry_run, erpnext=args.erpnext)
     print(f"Created simulated work orders: {report['created_count']}")
     print(f"Skipped duplicates: {report['skipped_duplicate_count']}")
     print(f"Report: {RUN_DIR / 'latest.json'}")

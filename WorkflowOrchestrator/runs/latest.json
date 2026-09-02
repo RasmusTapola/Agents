@@ -1,37 +1,37 @@
 {
-  "workflow_id": "workflow-20260830T120035Z",
-  "generated_at": "2026-08-30T12:00:36+00:00",
+  "workflow_id": "workflow-20260902T120018Z",
+  "generated_at": "2026-09-02T12:00:19+00:00",
   "status": "completed",
   "stages": [
     {
       "agent": "GmailAgent",
       "status": "skipped",
-      "output_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-08-30.json",
+      "output_file": "C:\\var\\git\\Agents\\GmailAgent\\reports\\work_order_candidates_2026-09-02.json",
       "reason": "replay mode"
     },
     {
       "agent": "EmailValidationAgent",
       "status": "completed",
       "output_file": "C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json",
-      "console_output": "Validated candidates: 3\nDecisions: {'approved_for_next_stage': 3}\nValidation report: C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json"
+      "console_output": "Validated candidates: 0\nDecisions: {}\nValidation report: C:\\var\\git\\Agents\\EmailValidationAgent\\runs\\latest.json"
     },
     {
       "agent": "CRMResolutionAgent",
       "status": "completed",
       "output_file": "C:\\var\\git\\Agents\\CRMResolutionAgent\\runs\\latest.json",
-      "console_output": "CRM-enriched candidates: 3\nOutput: C:\\var\\git\\Agents\\CRMResolutionAgent\\runs\\latest.json"
+      "console_output": "CRM-enriched candidates: 0\nOutput: C:\\var\\git\\Agents\\CRMResolutionAgent\\runs\\latest.json"
     },
     {
       "agent": "ApprovalAgent",
       "status": "completed",
       "output_file": "C:\\var\\git\\Agents\\ApprovalAgent\\runs\\latest.json",
-      "console_output": "Candidates evaluated: 3\nDecisions: {'requires_human_approval': 2, 'approved': 1}\nApproval report: C:\\var\\git\\Agents\\ApprovalAgent\\runs\\latest.json"
+      "console_output": "Candidates evaluated: 0\nDecisions: {}\nApproval report: C:\\var\\git\\Agents\\ApprovalAgent\\runs\\latest.json"
     },
     {
       "agent": "ApprovedWorkOrderWorkflow",
       "status": "completed",
       "output_file": "C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\latest.json",
-      "console_output": "Created simulated work orders: 0\nSkipped duplicates: 1\nReport: C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\latest.json"
+      "console_output": "Created simulated work orders: 0\nSkipped duplicates: 0\nReport: C:\\var\\git\\Agents\\ApprovedWorkOrderWorkflow\\runs\\latest.json"
     },
     {
       "agent": "HumanApprovalWorkflow",
@@ -46,8 +46,5 @@
       "console_output": "Added 0 new clarification draft(s). Total drafts: 1\nQueue: C:\\var\\git\\Agents\\ClarificationWorkflow\\runs\\clarification_queue.json"
     }
   ],
-  "decision_counts": {
-    "requires_human_approval": 2,
-    "approved": 1
-  }
+  "decision_counts": {}
 }

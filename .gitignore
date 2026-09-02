@@ -1,5 +1,7 @@
 credentials.json
 token.json
+frappe_api_keys.csv
+key.txt
 .venv/
 __pycache__/
 reports/

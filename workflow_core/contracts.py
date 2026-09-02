@@ -8,7 +8,7 @@ from typing import Any
 
 WORKFLOW_STATES = {
     "received", "extracted", "validated", "clarification_needed",
-    "approval_needed", "approved", "rejected", "erp_pending",
+    "crm_lookup_completed", "approval_needed", "approved", "rejected", "erp_pending",
     "erp_created", "failed",
 }
 

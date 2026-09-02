@@ -16,5 +16,26 @@
     "status": "created_in_simulated_erp",
     "next_stage": "scheduling_pending",
     "source_approval": "approved"
+  },
+  {
+    "work_order_id": "SIM-WO-E9067444C5",
+    "created_at": "2026-09-02T11:49:44+00:00",
+    "source_email_id": "1a0521f9ce42b365",
+    "external_id": "email:1a0521f9ce42b365",
+    "customer": "Mahtavat masiinat Oy",
+    "contact": "Matti Meikäläinen",
+    "contact_details": "+358 40 123 4567",
+    "site_or_address": "Konekatu 123, Forssa",
+    "request_type": "maintenance",
+    "problem_or_request": "Compressor C-204 has started making a loud rattling noise",
+    "equipment_or_asset": "compressor C-204",
+    "priority": "medium",
+    "requested_date": "Thursday",
+    "requested_time": "afternoon",
+    "status": "created_in_simulated_erp",
+    "next_stage": "scheduling_pending",
+    "source_approval": "approved",
+    "erpnext_name": "ISS-2026-00001",
+    "erpnext_status": "Open"
   }
 ]
